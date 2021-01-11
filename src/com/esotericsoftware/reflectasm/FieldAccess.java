@@ -25,6 +25,8 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
+import org.checkerframework.checker.determinism.qual.*;
+
 public abstract class FieldAccess {
 	private String[] fieldNames;
 	private Class[] fieldTypes;
@@ -94,10 +96,10 @@ public abstract class FieldAccess {
 	abstract public float getFloat (Object instance, int fieldIndex);
 
 	static public FieldAccess get (Class type) {
-		ArrayList<Field> fields = new ArrayList<Field>();
+		@Det ArrayList<@Det Field> fields = new ArrayList<Field>();
 		Class nextClass = type;
 		while (nextClass != Object.class) {
-			Field[] declaredFields = nextClass.getDeclaredFields();
+			@Det Field @Det[] declaredFields = nextClass.getDeclaredFields();
 			for (int i = 0, n = declaredFields.length; i < n; i++) {
 				Field field = declaredFields[i];
 				int modifiers = field.getModifiers();
@@ -108,8 +110,8 @@ public abstract class FieldAccess {
 			nextClass = nextClass.getSuperclass();
 		}
 
-		String[] fieldNames = new String[fields.size()];
-		Class[] fieldTypes = new Class[fields.size()];
+		@Det String @Det[] fieldNames = new String[fields.size()];
+		@Det Class @Det[] fieldTypes = new Class[fields.size()];
 		for (int i = 0, n = fieldNames.length; i < n; i++) {
 			fieldNames[i] = fields.get(i).getName();
 			fieldTypes[i] = fields.get(i).getType();
@@ -183,7 +185,7 @@ public abstract class FieldAccess {
 
 		if (!fields.isEmpty()) {
 			maxStack--;
-			Label[] labels = new Label[fields.size()];
+			@Det Label @Det[] labels = new Label[fields.size()];
 			for (int i = 0, n = labels.length; i < n; i++)
 				labels[i] = new Label();
 			Label defaultLabel = new Label();
@@ -260,7 +262,7 @@ public abstract class FieldAccess {
 
 		if (!fields.isEmpty()) {
 			maxStack--;
-			Label[] labels = new Label[fields.size()];
+			@Det Label @Det[] labels = new Label[fields.size()];
 			for (int i = 0, n = labels.length; i < n; i++)
 				labels[i] = new Label();
 			Label defaultLabel = new Label();
@@ -322,7 +324,7 @@ public abstract class FieldAccess {
 
 		if (!fields.isEmpty()) {
 			maxStack--;
-			Label[] labels = new Label[fields.size()];
+			@Det Label @Det[] labels = new Label[fields.size()];
 			Label labelForInvalidTypes = new Label();
 			boolean hasAnyBadTypeLabel = false;
 			for (int i = 0, n = labels.length; i < n; i++) {
@@ -414,7 +416,7 @@ public abstract class FieldAccess {
 
 		if (!fields.isEmpty()) {
 			maxStack--;
-			Label[] labels = new Label[fields.size()];
+			@Det Label @Det[] labels = new Label[fields.size()];
 			Label labelForInvalidTypes = new Label();
 			boolean hasAnyBadTypeLabel = false;
 			for (int i = 0, n = labels.length; i < n; i++) {
@@ -503,7 +505,7 @@ public abstract class FieldAccess {
 
 		if (!fields.isEmpty()) {
 			maxStack--;
-			Label[] labels = new Label[fields.size()];
+			@Det Label @Det[] labels = new Label[fields.size()];
 			Label labelForInvalidTypes = new Label();
 			boolean hasAnyBadTypeLabel = false;
 			for (int i = 0, n = labels.length; i < n; i++) {
