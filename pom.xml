@@ -98,6 +98,7 @@
 						</annotationProcessors>
 						<compilerArgs>
 							<!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
+						    <arg>-AusePolyDefault</arg>
 						</compilerArgs>
         			</configuration>
       			</plugin>
